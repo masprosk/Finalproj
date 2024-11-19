@@ -1,0 +1,79 @@
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #f0f0f0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+h1 {
+    text-align: center;
+    font-size: 24px;
+    color: #333; /* Dark gray */
+    margin-bottom: 20px; /* Space between the title and the game */
+    font-family: Arial, sans-serif;
+}
+
+/* Create a container for the 6-inch by 6-inch square */
+.container {
+    position: relative;
+    width: 576px;  /* 6 inches in pixels (6 * 96px) */
+    height: 576px; /* 6 inches in pixels (6 * 96px) */
+    background-color: #fff;
+    border: 2px solid black;
+}
+
+.hitbox {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background-color: black; /* Default color is black */
+    border: 2px solid black;
+}
+
+.hitbox.green {
+    background-color: green; /* Green color when hitbox is activated */
+}
+
+.hitbox.red {
+    background-color: red; /* Red color for incorrect hitbox */
+}
+
+.movable-object {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background-color: blue;
+    border-radius: 50%;
+    transition: top 0.1s linear, left 0.1s linear;
+}
+
+.text-box {
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 18px;
+    font-family: Arial, sans-serif;
+    color: black;
+    background-color: lightyellow;
+    padding: 10px;
+    border: 2px solid black;
+    display: none; /* Initially hidden */
+}
+
+/* Position for answer labels next to the hitboxes */
+.answer-label {
+    position: absolute;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    color: black;
+    background-color: white;
+    padding: 5px;
+    border: 1px solid black;
+    width: 70px; /* Make the label a bit wider to avoid text overflow */
+    text-align: center;
+}
