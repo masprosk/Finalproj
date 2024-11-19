@@ -8,7 +8,7 @@ $(document).ready(function () {
     let isSecondRound = false;
 
     const shapiroImage = 'url("images/shapiroFace.JPG")';
-    const petticeImage = 'url("images/pettice_mary.jpg")';
+    const petticeImage = 'url("images/pettice_mary.jpeg")';
 
     // Initial purple keyframes setup
     updateKeyframes('#37218a', 'rgba(0, 17, 172, 0.3)', 'rgba(119, 0, 255, 0.5)');
