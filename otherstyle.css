@@ -1,0 +1,134 @@
+/* Base styles */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+body {
+    font-family: 'Press Start 2P', sans-serif;
+    color: #33ff99;
+    background-color: #1a1a2e;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+}
+
+#matrixCanvas {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+#homeContainer, #gameContainer, #triviaContainer {
+    line-height: 1.5;
+    text-align: center;
+    background: linear-gradient(135deg, #0d0d3a, #2a2a7a);
+    padding: 40px;
+    border-radius: 12px;
+    border: 10px outset #636363;
+    box-shadow: 0px 8px 30px rgb(139, 0, 0);
+    width: 450px;
+    height: 450px;
+    animation: pulse 2s infinite alternate;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.startButton, #clickButton {
+    font-size: 30px;
+    padding: 15px 30px;
+    background-color: #4CAF50;
+    color: #f3f3f3;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.startButton:hover, #clickButton:hover {
+    background-color: #45a049;
+    transform: scale(1.1);
+}
+
+#totrivia, #totrivia2, #tostart {
+    margin-top: 20px;
+    font-size: 25px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: #f3f3f3;
+    border: none;
+    border-radius: 8px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#totrivia, #totrivia2 {
+    display: none;
+}
+
+#totrivia:hover, #tostart:hover, #totrivia2:hover {
+    background-color: #45a049;
+    transform: scale(1.1);
+}
+
+#totrivia a, #tostart a, #totrivia2 a {
+    text-decoration: none;
+    color: white;
+}
+
+.question button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.question button:hover {
+    transform: rotate(5deg) scale(1.1);
+    background-color: #33ff99;
+}
+
+h1 {
+    color: #33ff99;
+    font-size: 28px;
+    animation: textGlow 1.5s infinite;
+}
+
+p, #timer, #clickCount {
+    font-size: 18px;
+    color: #e0e0e0;
+}
+
+.fade-in {
+    animation: fadeIn 1s ease-in-out forwards;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+@keyframes textGlow {
+    0% { text-shadow: 0 0 5px #37218a, 0 0 10px #37218a; }
+    50% { text-shadow: 0 0 15px #37218a, 0 0 30px #37218a; }
+    100% { text-shadow: 0 0 5px #37218a, 0 0 10px #37218a; }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); box-shadow: 0px 8px 30px rgba(0, 17, 172, 0.3); }
+    100% { transform: scale(1.02); box-shadow: 0px 8px 40px rgba(119, 0, 255, 0.5); }
+}
+
