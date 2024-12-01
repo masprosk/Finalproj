@@ -45,8 +45,8 @@ body {
     font-size: 30px;
     padding: 15px 30px;
     background-color: #4CAF50;
+    border: outset thick darkslategray;
     color: #f3f3f3;
-    border: none;
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -54,6 +54,7 @@ body {
 
 .startButton:hover, #clickButton:hover {
     background-color: #45a049;
+    border: ridge thick lightslategray;
     transform: scale(1.1);
 }
 
@@ -63,7 +64,7 @@ body {
     padding: 10px 20px;
     background-color: #4CAF50;
     color: #f3f3f3;
-    border: none;
+    border: outset thick darkslategray;
     border-radius: 8px;
     text-align: center;
     cursor: pointer;

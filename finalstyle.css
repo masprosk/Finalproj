@@ -29,7 +29,7 @@ body {
     color: darkslategray;
     padding: 20px 20px;
     font-size: 40px;
-    border: outset thick darkslategray;
+    border: ridge thick darkslategray;
     border-radius: 5px;
     transition: background-color 0.3s;
     margin-top: 10px;
