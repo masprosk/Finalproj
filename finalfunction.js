@@ -21,7 +21,7 @@ $(document).ready(function () {
         }
 
         if (timeLeft > 0) {
-            clicks += clickMultiplier;
+            clicks += 1;
             totalScore += clickMultiplier;
             $('#clickCount').text('Total Score: ' + totalScore);
         }

@@ -1,24 +1,213 @@
-<!DOCTYPE html>
 <html>
+
 <head>
-  <title>Trivia Challenge</title>
-  <link rel="stylesheet" href="otherstyle.css">
-</head>
-<body>
-    <div>
-        <div id="triviaContainer" class="fade-in">
-            <h1>DCOM Trivia</h1>
-            <p>Answer these questions to earn points!</p>
-            <div class="question">
-            <p>*question*</p>
-            <button onclick="answerCorrect()">*correct*</button>
-            <button onclick="answerIncorrect()">*incorrect*</button>
-            </div>
-            <!-- Add more trivia questions similarly -->
-        </div>
-    </div>  
-    <a id="tostart" href="startingpage.html">Back to the start!</a>
+  <title>Final Project Question Test</title>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="trivia.js"></script>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background-color: #f0f0f0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      position: relative;
+      width: 576px;
+      height: 576px;
+      background-color: #fff;
+      border: 2px solid black;
+    }
+
+    .text-box {
+      position: absolute;
+      top: 25%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 18px;
+      font-family: Arial, sans-serif;
+      color: black;
+      background-color: lightyellow;
+      padding: 10px;
+      border: 2px solid black;
+      display: none;
+    }
+
+    .answer-box {
+      position: absolute;
+      font-size: 14px;
+      background-color: #fff;
+      padding: 10px;
+      border: 1px solid #ccc;
+      cursor: pointer;
+      width: 120px;
+      text-align: center;
+    }
+
+    /* Positioning the answer boxes in the four corners */
+    .top-left {
+      top: 20px;
+      left: 20px;
+    }
+
+    .top-right {
+      top: 20px;
+      right: 20px;
+    }
+
+    .bottom-left {
+      bottom: 20px;
+      left: 20px;
+    }
+
+    .bottom-right {
+      bottom: 20px;
+      right: 20px;
+    }
+
+    /* Counter at the bottom center */
+    #counter {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 16px;
+      font-family: Arial, sans-serif;
+      color: black;
+      background-color: lightgrey;
+      padding: 5px 10px;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="text-box" id="question-box">Where is Dr. Richie's office located?</div>
+    <div id="counter">Correct Answers: 0</div>
+  </div>
+
+  <script>
+    const container = $('.container');
+    const questionBox = $('#question-box');
+    const counter = $('#counter');
+
+    let correctAnswersCount = 0; // Track correct answers
+    let answeredQuestions = []; // To store answered questions
+
+    // Sample data for klineq&a and richieq&a
+    const klineqanda = [
+      { question: "Where is Kline's office?", correctAnswer: 'Clyde A. Lynch 120-A', answers: ['Clyde A. Lynch 120-A', 'Clyde A. Lynch 120-B', 'Clyde A. Lynch 121-A', 'Clyde A. Lynch 121-B'] },
+      { question: "Where did Dr. Kline receive his Ph.D?", correctAnswer: 'Temple University', answers: ['Temple University', 'Texas Tech University', 'Tulane University', 'Trinity College Dublin'] },
+      { question: "What specific practice areas does he teach at LVC?", correctAnswer: 'User Experience/ UX', answers: ['User Experience/ UX', 'Interactive Storytelling', 'Motion Graphics', 'Graphic Design'] },
+      { question: "Which email is Dr. Kline's correct email?", correctAnswer: 'jkline@lvc.edu', answers: ['kline@lvc.edu', 'jkline@lvc.edu', 'joelk@lvc.edu', 'kline@jlvc.edu'] },
+      { question: "Did Kline get his B.S., B.A. at Lebanon Valley College?", correctAnswer: 'True', answers: ['True', 'False', 'Who is Kline', 'What is B.S. B.A.'] },
+      { question: "What is Kline's phone number?", correctAnswer: '717-867-6108', answers: ['717-867-5309', '717-324-5674', '717-867-6108', '717-310-4561'] },
+      { question: "Where in the world does Kline want to retire to?", correctAnswer: 'Cayman Islands', answers: ['His house', 'Canada', 'Hawaii', 'Cayman Islands'] },
+      { question: "What are Kline's Dog Names?", correctAnswer: 'Sophie & Maisy', answers: ['Sarah & Maisy', 'Sophie & Maya', 'Sophie & Maisy', 'Sarah & Maya'] },
+      { question: "Which of these classes does Kline teach?", correctAnswer: 'DCOM-131', answers: ['DCOM-130', 'DCOM-270', 'DCOM-400', 'DCOM-131'] },
+      { question: "How does Kline start most stories?", correctAnswer: 'So I had this Girlfriend', answers: ['Back in college', 'So I had this Girlfriend', 'This one time', 'So way back when'] },
+    ];
+
+    const richieqanda = [
+      { question: "Where is Dr. Richie's office?", correctAnswer: 'Clyde A. Lynch 119-A', answers: ['Clyde A. Lynch 119-A', 'Clyde A. Lynch 119-B', 'Clyde A. Lynch 118-A', 'Clyde A. Lynch 118-B'] },
+      { question: "Dr. Ritchie is the Chair and Professor of Design, Marketing, and Technology?", correctAnswer: 'True', answers: ['True', 'No', 'False', 'Yes'] },
+      { question: "What is Ritchie's phone number?", correctAnswer: '717-867-6249', answers: ['717-867-6492', '717-867-5309', '717-867-6249', '717-249-6678'] },
+      { question: "How many connections does Ritchie have on LinkedIn?", correctAnswer: '500+', answers: ['600+', '700+', '800+', '500+'] },
+      { question: "How many followers does Ritchie have on Twitter?", correctAnswer: '406', answers: ['404', '406', '400', '402'] },
+      { question: "What is his favorite drink?", correctAnswer: 'Beer', answers: ['Water', 'Beer', 'Soda', 'Liquor'] },
+      { question: "What did he originally teach?", correctAnswer: 'English', answers: ['Creative arts', 'Health', 'English', 'Spanish'] },
+      { question: "Which email is Dr. Ritchie's correct email?", correctAnswer: 'ritchie@lvc.edu', answers: ['ritchiej@lvc.edu', 'ritchie@lvc.edu', 'richie@jlvc.edu', 'jritchie@lvc.edu'] },
+      { question: "Which of these courses does Dr. Ritchie teach?", correctAnswer: 'Emerging Media', answers: ['Engaging Media', 'Evolving Media', 'Emerging Media', 'Experiential Media'] },
+      { question: "Where did Dr. Ritchie receive his Ph.D?", correctAnswer: 'Arizona State University', answers: ['Alabama State University', 'Alvernia University', 'Arizona State University', 'Adams State University'] },
+    ];
+
+    // Combine both question sets
+    const allQuestions = [...klineqanda, ...richieqanda];
+
+    // Function to pick a random question and its answers
+    function getRandomQuestion() {
+      // Filter out already answered questions
+      const remainingQuestions = allQuestions.filter(q => !answeredQuestions.includes(q.question));
+      if (remainingQuestions.length === 0) {
+        // If all questions have been answered, reset the game
+        alert("All questions have been answered! Starting over...");
+        answeredQuestions = []; // Reset answered questions
+        correctAnswersCount = 0; // Reset correct answers count
+        counter.text(`Correct Answers: ${correctAnswersCount}`);
+        return getRandomQuestion(); // Recurse to get a new question
+      }
+
+      const randomIndex = Math.floor(Math.random() * remainingQuestions.length);
+      return remainingQuestions[randomIndex];
+    }
+
+    // Display the question and answers
+    function displayQuestion() {
+      const { question, correctAnswer, answers } = getRandomQuestion();
+      questionBox.text(question).show();
+
+      // Shuffle the answers so they appear in random order
+      answers.sort(() => Math.random() - 0.5);
+
+      // Create answer boxes with the answers
+      answers.forEach((answer, index) => {
+        const answerBox = $('<div class="answer-box"></div>').text(answer);
+        // Position answer boxes in corners
+        switch (index) {
+          case 0:
+            answerBox.addClass('top-left');
+            break;
+          case 1:
+            answerBox.addClass('top-right');
+            break;
+          case 2:
+            answerBox.addClass('bottom-left');
+            break;
+          case 3:
+            answerBox.addClass('bottom-right');
+            break;
+        }
+
+        container.append(answerBox);
+        answerBox.on('click', function () {
+          checkAnswer(answer, correctAnswer, question);
+        });
+      });
+    }
+
+    // Check if the selected answer is correct
+    function checkAnswer(answer, correctAnswer, question) {
+      if (answer === correctAnswer) {
+        correctAnswersCount++;
+        counter.text(`Correct Answers: ${correctAnswersCount}`);
+        questionBox.text("Correct!").css("background-color", "lightgreen");
+      } else {
+        questionBox.text("Incorrect!").css("background-color", "lightcoral");
+      }
+
+      // Mark question as answered
+      answeredQuestions.push(question);
+
+      setTimeout(function () {
+        questionBox.hide();
+        resetGame();
+      }, 2000);
+    }
+
+    function resetGame() {
+      // Remove answer boxes
+      $('.answer-box').remove();
+      displayQuestion();
+    }
+
+    // Start the game
+    displayQuestion();
+  </script>
 </body>
+
 </html>
