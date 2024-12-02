@@ -1,20 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Final project question test</title>
+    <title>Trivia Game</title>
     <link rel="stylesheet" href="trivia.css">
 </head>
 <body>
-    <div>
-        <h1>Interact with the box to get started</h1>
-        <div class="container">
-            <div class="movable-object" id="movable-object"></div>
-            <div class="hitbox" id="starter-hitbox"></div>
-            <div class="text-box" id="question-box">Which answer is to your left?</div>
+    <canvas id="matrixCanvas"></canvas>
+    <div id="triviaContainer">
+        <div id="questionDisplay">Question will appear here</div>
+        <div id="gameArea">
+            <div id="character"></div>
+            <div class="answer" id="topLeft">A</div>
+            <div class="answer" id="topRight">B</div>
+            <div class="answer" id="bottomLeft">C</div>
+            <div class="answer" id="bottomRight">D</div>
         </div>
-        <a href="startingpage.html">Back to the start!</a>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="trivia.js"></script>
+    <script src="finalfunction.js"></script>
 </body>
 </html>
