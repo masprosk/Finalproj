@@ -7,6 +7,10 @@ $(document).ready(function () {
     let clickMultiplier = 1;
     let isSecondRound = false;
     let word = "ADVENTURE"; // Word to display for background
+    const urlElement = document.getElementById("url");
+    let corrects = 0;
+    let wrongs = 0;
+    let ritchie;
 
     const shapiroImage = 'url("images/shapiroFace.JPG")';
     const petticeImage = 'url("images/pettice_mary.jpeg")';
@@ -27,6 +31,8 @@ $(document).ready(function () {
         }
     });
 
+
+
     function startGame() {
         clearInterval(timer);
 
@@ -36,12 +42,12 @@ $(document).ready(function () {
             if (timeLeft <= 0) {
                 clearInterval(timer);
                 $('#timer').text('Time’s up! Click total: ' + clicks);
+                urlElement.href = `trivia.html?clicks=${clicks}&total=${totalScore}`;
 
                 if (!isSecondRound) {
                     setTimeout(startSecondRound, 2000); // Brief pause before the second round
                 } else {
                     alert('Game over! Your total score is: ' + totalScore);
-                    let clickspersecond = clicks / 20;
                     $('#totrivia').show();
                     $('#totrivia2').show();
                 }
@@ -139,10 +145,6 @@ $(document).ready(function () {
     initialize();
     window.addEventListener("resize", initialize);
 
-    // Word and characters setup
-
-
-
     // Create gradient for background fade
     function createGradient() {
         const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
@@ -206,6 +208,8 @@ $(document).ready(function () {
 
     // Start the animation
     setInterval(draw, root.matrixspeed);
+
+    //Trivia Game
     const character = $('#character');
     const answers = $('.answer');
     const gameArea = $('#gameArea');
@@ -240,14 +244,15 @@ $(document).ready(function () {
     // Game state variables
     let questions = [];
     let currentQuestionIndex = 0;
-    let position = { top: 230, left: 230 }; // Character's starting position
+    let position = { top: 250 , left: 250 }; // Character's starting position
 
     // Load question based on current index
-    function loadQuestion() {
+    function loadQuestion(questions) {
         if (currentQuestionIndex >= questions.length) {
             alert("Trivia Completed!");
-            currentQuestionIndex = 0; // Reset for replay
-            return;
+            word = 'GAMEOVER';
+            root.rainbow = true;
+            scoreboard();
         }
 
         const currentQuestion = questions[currentQuestionIndex];
@@ -280,10 +285,17 @@ $(document).ready(function () {
                 charRect.bottom > answerRect.top
             ) {
                 const isCorrect = $(this).data('correct');
-                alert(isCorrect ? "Correct!" : "Wrong!");
+                if (isCorrect) {
+                    alert('Correct!');
+                    corrects++;
+                }
+                else {
+                    alert('Wrong!');
+                    wrongs++;
+                }
 
                 currentQuestionIndex++;
-                loadQuestion();
+                loadQuestion(questions);
                 resetCharacterPosition();
             }
         });
@@ -291,7 +303,7 @@ $(document).ready(function () {
 
     // Reset character position to the center of the game area
     function resetCharacterPosition() {
-        position = { top: 150, left: 250 };
+        position = { top: 250, left: 250 };
         character.css({ top: `${position.top}px`, left: `${position.left}px` });
     }
 
@@ -310,53 +322,74 @@ $(document).ready(function () {
         checkCollision();
     }
 
-    function bothbosses() {
-        word = 'TRI';
-        // Initialize an empty list to hold the selected questions
-        let randomquestions = [];
-    
-        // Select 5 random questions from Ritchie's pool
-        let ritchieRandomQuestions = [];
-        while (ritchieRandomQuestions.length < 5) {
-            let randomIndex = Math.floor(Math.random() * ritchieQuestions.length);
-            if (!ritchieRandomQuestions.includes(ritchieQuestions[randomIndex])) {
-                ritchieRandomQuestions.push(ritchieQuestions[randomIndex]);
-            }
-        }
-    
-        // Select 5 random questions from Kline's pool
-        let klineRandomQuestions = [];
-        while (klineRandomQuestions.length < 5) {
-            let randomIndex = Math.floor(Math.random() * klineQuestions.length);
-            if (!klineRandomQuestions.includes(klineQuestions[randomIndex])) {
-                klineRandomQuestions.push(klineQuestions[randomIndex]);
-            }
-        }
-    
-        // Add the random questions to the questions list
-        randomquestions.push(...ritchieRandomQuestions);
-        randomquestions.push(...klineRandomQuestions);
-    
-        questions = randomquestions; // Ensure this is accessible to loadQuestion()
-        alert(randomquestions)
-        alert(questions)
-    
-        loadQuestion();
+    function klineboss() {
+        ritchie = false;
+        questions = klineqanda;
+        loadQuestion(questions);
         $(document).on('keydown', moveCharacter);
+        word = 'KLINE';
+
     }
-    
+
     function ritchieonly() {
-        word = 'TRIVIA';
-        questions = richieqanda; // Ensure richieqanda is defined and populated
-        loadQuestion();
+        ritchie = true;
+        questions = richieqanda;
+        loadQuestion(questions);
         $(document).on('keydown', moveCharacter);
+        word = 'RITCHIE';
     }
-    
-    let clickspersecond = 6;
-    if (clickspersecond >= 6) {
-        ritchieonly();
-    } else {
-        bothbosses();
+
+    $('#startboss').click(function () { 
+        startboss();
+        $('#startboss').hide();
+    });
+
+    function startboss() {
+        $('#triviaContainer').show();
+        const urlParams = new URLSearchParams(window.location.search);
+        const c = urlParams.get('clicks');
+        let clicksper = c / 20;
+        clicksper = 6;
+        console.log(c);
+        console.log(clicksper);
+        if (clicksper >= 6) {
+            alert("You averaged more than 6 clicks per second! Your talent gives you the chance to outwit Dr. Ritchie the Wise!");
+            ritchieonly();
+        }
+        else {
+            alert("You averaged less than 6 clicks per second! Your situation allows you the chance to outsmart Dr. Kline the Clever!");
+            klineboss();
+        }
     }
-    
+
+
+    function scoreboard() {
+        $('#triviaContainer').hide();
+        const urlParams = new URLSearchParams(window.location.search);
+        const c = urlParams.get('clicks');
+        const urlParam = new URLSearchParams(window.location.search);
+        const t = urlParam.get('total');
+        let clicksper = c / 20;
+
+        let scores = [
+            { name: 'Clicks', value: c },
+            { name: 'Total Click Score', value: t },
+            { name: 'Clicks per Second', value: clicksper },
+            { name: 'Corrects', value: corrects },
+            { name: 'Wrongs', value: wrongs }
+        ];
+        const scoreList = document.getElementById('scoreList');
+        scoreList.innerHTML = ''; // Clear the current list
+        let basePath = ritchie ? 'ritchie' : 'kline';
+        let imageName = corrects > wrongs ? 'happy' : wrongs > corrects ? 'mad' : 'think';
+        $('#scoreList').css('background-image', `url("images/${imageName}${basePath}.jpg")`);
+        // Loop through the scores array and create list items for each score
+        scores.forEach(score => {
+            const scoreItem = document.createElement('li');
+            scoreItem.textContent = `${score.name}: ${score.value}`;
+            scoreList.appendChild(scoreItem);
+        });
+        console.log('Clicks:', c, 'Total Click Score:', totalScore, 'Clicks per Second:', clicksper, 'Corrects:', corrects, 'Wrongs:', wrongs);
+        $('#scoreList').css('display', 'block');
+    }
 });

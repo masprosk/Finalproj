@@ -5,15 +5,26 @@
     <link rel="stylesheet" href="trivia.css">
 </head>
 <body>
-    <canvas id="matrixCanvas"></canvas>
-    <div id="triviaContainer">
-        <div id="questionDisplay">Question will appear here</div>
-        <div id="gameArea">
-            <div id="character"></div>
-            <div class="answer" id="topLeft">A</div>
-            <div class="answer" id="topRight">B</div>
-            <div class="answer" id="bottomLeft">C</div>
-            <div class="answer" id="bottomRight">D</div>
+    <div id="all">
+        <div id="startboss">
+            <button>Start the Boss!</button>
+        </div>
+        <canvas id="matrixCanvas"></canvas>
+        <div id="triviaContainer">
+            <div id="questionDisplay">Question will appear here</div>
+            <div id="gameArea">
+                <div id="character"></div>
+                <div class="answer" id="topLeft">A</div>
+                <div class="answer" id="topRight">B</div>
+                <div class="answer" id="bottomLeft">C</div>
+                <div class="answer" id="bottomRight">D</div>
+            </div>
+        </div>
+        <div id="scoreList">
+            <ul></ul>
+        </div>
+        <div id="tostart">
+            <a href="startingpage.html">Back to the start!</a>
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

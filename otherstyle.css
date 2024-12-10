@@ -21,7 +21,9 @@ body {
     z-index: -1;
 }
 
-#homeContainer, #gameContainer, #triviaContainer {
+#homeContainer,
+#gameContainer,
+#triviaContainer {
     line-height: 1.5;
     text-align: center;
     background: linear-gradient(135deg, #0d0d3a, #2a2a7a);
@@ -41,7 +43,8 @@ body {
     align-items: center;
 }
 
-.startButton, #clickButton {
+.startButton,
+#clickButton {
     font-size: 30px;
     padding: 15px 30px;
     background-color: #4CAF50;
@@ -52,13 +55,16 @@ body {
     transition: all 0.3s ease;
 }
 
-.startButton:hover, #clickButton:hover {
+.startButton:hover,
+#clickButton:hover {
     background-color: #45a049;
     border: ridge thick lightslategray;
     transform: scale(1.1);
 }
 
-#totrivia, #totrivia2, #tostart {
+#totrivia,
+#totrivia2,
+#tostart {
     margin-top: 20px;
     font-size: 25px;
     padding: 10px 20px;
@@ -71,16 +77,21 @@ body {
     transition: all 0.3s ease;
 }
 
-#totrivia, #totrivia2 {
+#totrivia,
+#totrivia2 {
     display: none;
 }
 
-#totrivia:hover, #tostart:hover, #totrivia2:hover {
+#totrivia:hover,
+#tostart:hover,
+#totrivia2:hover {
     background-color: #45a049;
     transform: scale(1.1);
 }
 
-#totrivia a, #tostart a, #totrivia2 a {
+#totrivia a,
+#tostart a,
+#totrivia2 a {
     text-decoration: none;
     color: white;
 }
@@ -107,7 +118,9 @@ h1 {
     animation: textGlow 1.5s infinite;
 }
 
-p, #timer, #clickCount {
+p,
+#timer,
+#clickCount {
     font-size: 18px;
     color: #e0e0e0;
 }
@@ -116,20 +129,57 @@ p, #timer, #clickCount {
     animation: fadeIn 1s ease-in-out forwards;
 }
 
+.scoreboard {
+    margin: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    width: 300px;
+}
+
+.scoreboard ul {
+    list-style: none;
+    padding: 0;
+}
+
+.scoreboard li {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
 /* Animations */
 @keyframes fadeIn {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
 }
 
 @keyframes textGlow {
-    0% { text-shadow: 0 0 5px #37218a, 0 0 10px #37218a; }
-    50% { text-shadow: 0 0 15px #37218a, 0 0 30px #37218a; }
-    100% { text-shadow: 0 0 5px #37218a, 0 0 10px #37218a; }
+    0% {
+        text-shadow: 0 0 5px #37218a, 0 0 10px #37218a;
+    }
+
+    50% {
+        text-shadow: 0 0 15px #37218a, 0 0 30px #37218a;
+    }
+
+    100% {
+        text-shadow: 0 0 5px #37218a, 0 0 10px #37218a;
+    }
 }
 
 @keyframes pulse {
-    0% { transform: scale(1); box-shadow: 0px 8px 30px rgba(0, 17, 172, 0.3); }
-    100% { transform: scale(1.02); box-shadow: 0px 8px 40px rgba(119, 0, 255, 0.5); }
-}
+    0% {
+        transform: scale(1);
+        box-shadow: 0px 8px 30px rgba(0, 17, 172, 0.3);
+    }
 
+    100% {
+        transform: scale(1.02);
+        box-shadow: 0px 8px 40px rgba(119, 0, 255, 0.5);
+    }
+}

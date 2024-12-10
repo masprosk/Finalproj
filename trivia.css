@@ -7,7 +7,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    margin: 0;
+    margin: 10;
 }
 
 #matrixCanvas {
@@ -22,8 +22,7 @@ body {
     width: 500px;
     height: 500px;
     position: relative;
-    display: flex;
-    flex-direction: column;
+    display: none;
     align-items: center;
     justify-content: center;
 }
@@ -59,14 +58,61 @@ body {
 
 .answer {
     position: absolute;
-    width: 150px;
+    width: 200px;
     height: 75px;
     background-color: #636363;
     color: white;
     text-align: center;
     line-height: 1.5;
+    border: thick inset darkslategray;
     border-radius: 10px;
 }
+#tostart, button {
+    display: block;
+    left: 50%;
+    font-family: 'Press Start 2P', sans-serif;
+    margin-top: 20px;
+    font-size: 25px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: #f3f3f3;
+    border: outset thick darkslategray;
+    border-radius: 8px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#tostart:hover, button:hover{
+    background-color: #45a049;
+    transform: scale(1.1);
+}
+
+#tostart a{
+    text-decoration: none;
+    color: white;
+}
+
+#scoreList {
+    background-image: none;
+    display: none;
+    line-height: 2;
+    width: 400px;
+    height: 400px;
+    background-size: cover;
+    background-position: center;
+    border: 5px solid #4CAF50;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(24, 202, 0, 0.222);
+    margin: 20px auto;
+}
+
+li {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
 
 #topLeft { top: 10px; left: 10px; }
 #topRight { top: 10px; right: 10px; }
