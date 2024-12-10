@@ -349,7 +349,6 @@ $(document).ready(function () {
         const urlParams = new URLSearchParams(window.location.search);
         const c = urlParams.get('clicks');
         let clicksper = c / 20;
-        clicksper = 6;
         console.log(c);
         console.log(clicksper);
         if (clicksper >= 6) {
